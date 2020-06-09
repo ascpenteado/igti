@@ -3,14 +3,39 @@ import { promises } from 'fs';
 
 const app = express();
 const port = 3000;
+const { readFile, writeFile, appendFile } = promises;
+
+app.use(express.json());
 
 // Listen
 app.listen(port, () => {
     console.log(`API running on port ${port}...`);
 });
 
+// Create Grade
+app.post('/', async (req, res) => {
+    let { student, subject, type, value } = req.body;
+    let timestamp = new Date();
+    let gradesData = JSON.parse(await readFile('./grades.json', 'utf8'));
+    let id = gradesData.nextId;
+
+    let preData = {
+        id,
+        student,
+        subject,
+        type,
+        value,
+        timestamp,
+    };
+
+    gradesData.grades.push(preData);
+    gradesData.nextId++;
+    await writeFile('./grades.json', JSON.stringify(gradesData), 'utf8');
+    res.send(gradesData);
+});
+
 /*  TO DO ***
-1. Crie um endpoint para criar uma grade. Este endpoint deverá receber como parâmetros os campos student, subject, type e value conforme descritos acima. Essa grade deverá ser salva no arquivo json grades.json, e deverá ter um id único associado. No campo timestamp deverá ser salvo a data e hora do momento da inserção. O endpoint deverá retornar o objeto da grade que foi criada. A API deverá garantir o incremento automático desse identificador, de forma que ele não se repita entre os registros. Dentro do arquivo grades.json que foi fornecido para utilização no desafio, o campo nextId já está com um valor definido. Após a inserção é preciso que esse nextId seja incrementado e salvo no próprio arquivo, de forma que na próxima inserção ele possa ser utilizado.
+
 2. Crie um endpoint para atualizar uma grade. Esse endpoint deverá receber como parâmetros o id da grade a ser alterada e os campos student, subject, type e value. O endpoint deverá validar se a grade informada existe, caso não exista deverá retornar um erro. Caso exista, o endpoint deverá atualizar as informações recebidas por parâmetros no registro, e realizar sua atualização com os novos dados alterados no arquivo grades.json.
 3. Crie um endpoint para excluir uma grade. Esse endpoint deverá receber como parâmetro o id da grade e realizar sua exclusão do arquivo grades.json.
 4. Crie um endpoint para consultar uma grade em específico. Esse endpoint deverá receber como parâmetro o id da grade e retornar suas informações.

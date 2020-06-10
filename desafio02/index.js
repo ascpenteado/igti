@@ -78,9 +78,52 @@ app.get('/:id', async (req, res) => {
     res.send(gradeToShow);
 });
 
-/*  TO DO ***
+app.get('/sum/:student/:subject', async (req, res) => {
+    let { student, subject } = req.params;
+    let gradesData = JSON.parse(await readFile('./grades.json', 'utf8'));
+    let studentGrades = gradesData.grades.filter((grade) => {
+        if (student === grade.student && subject === grade.subject) {
+            return true;
+        }
+    });
 
-5. Crie um endpoint para consultar a nota total de um aluno em uma disciplina. O endpoint deverá receber como parâmetro o student e o subject, e realizar a soma de todas as notas de atividades correspondentes àquele subject, para aquele student. O endpoint deverá retornar a soma da propriedade value dos registros encontrados.
-6. Crie um endpoint para consultar a média das grades de determinado subject e type. O endpoint deverá receber como parâmetro um subject e um type, e retornar a média. A média é calculada somando o registro value de todos os registros que possuem o subject e type informados, dividindo pelo total de registros que possuem este mesmo subject e type.
-7. Crie um endpoint para retornar as três melhores grades de acordo com determinado subject e type. O endpoint deve receber como parâmetro um subject e um type, e retornar um array com os três registros de maior value daquele subject e type. A ordem deve ser do maior para o menor. 
-*/
+    let gradesSum = studentGrades.reduce((acc, grade) => {
+        return acc + grade.value;
+    }, 0);
+
+    res.status(200).json(gradesSum);
+});
+
+app.get('/avg/:type/:subject', async (req, res) => {
+    let { type, subject } = req.params;
+    let gradesData = JSON.parse(await readFile('./grades.json', 'utf8'));
+    let typeGrades = gradesData.grades.filter((grade) => {
+        if (type === grade.type && subject === grade.subject) {
+            return true;
+        }
+    });
+
+    let gradesAvg =
+        typeGrades.reduce((acc, grade) => {
+            return acc + grade.value;
+        }, 0) / typeGrades.length;
+
+    res.status(200).json(gradesAvg);
+});
+
+app.get('/top/:type/:subject', async (req, res) => {
+    let { type, subject } = req.params;
+    let gradesData = JSON.parse(await readFile('./grades.json', 'utf8'));
+    let topGrades = gradesData.grades
+        .filter((grade) => {
+            if (type === grade.type && subject === grade.subject) {
+                return true;
+            }
+        })
+        .sort((a, b) => {
+            return b.value - a.value;
+        })
+        .splice(0, 3);
+
+    res.status(200).json(topGrades);
+});

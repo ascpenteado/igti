@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
 export default class ReadOnly extends Component {
+    componentDidUpdate() {
+        console.log('updated');
+    }
+
     render() {
         const { description, id, val, percent } = this.props;
         return (

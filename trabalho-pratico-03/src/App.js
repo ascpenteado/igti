@@ -14,6 +14,9 @@ export default class App extends Component {
             baseIRPF: '',
             discountIRPF: '',
             netSalary: '',
+            inssPercent: '',
+            irpfPercent: '',
+            netPercent: '',
         };
     }
 
@@ -26,12 +29,20 @@ export default class App extends Component {
             discountIRPF,
             netSalary,
         } = salary;
+
+        let inssPercent = this.findPercent(discountINSS, baseINSS);
+        let irpfPercent = this.findPercent(discountIRPF, baseINSS);
+        let netPercent = this.findPercent(netSalary, baseINSS);
+
         this.setState({
             baseINSS,
             discountINSS,
             baseIRPF,
             discountIRPF,
             netSalary,
+            inssPercent,
+            irpfPercent,
+            netPercent,
         });
     };
 
@@ -43,8 +54,8 @@ export default class App extends Component {
         return money;
     }
 
-    findPercent(num) {
-        return ((num / this.state.baseINSS) * 100).toFixed(2);
+    findPercent(num, base) {
+        return ` (${((num / base) * 100).toFixed(2)}%)`;
     }
 
     render() {
@@ -54,6 +65,9 @@ export default class App extends Component {
             baseIRPF,
             discountIRPF,
             netSalary,
+            inssPercent,
+            irpfPercent,
+            netPercent,
         } = this.state;
 
         return (
@@ -77,7 +91,7 @@ export default class App extends Component {
                                 description="Desconto INSS"
                                 id="descontoINSS"
                                 val={this.convertToBRL(discountINSS)}
-                                percent={''}
+                                percent={inssPercent}
                             />
                             <ReadOnly
                                 description="Base IRPF"
@@ -89,7 +103,7 @@ export default class App extends Component {
                                 description="Desconto IRPF"
                                 id="descontoIRPF"
                                 val={this.convertToBRL(discountIRPF)}
-                                percent={''}
+                                percent={irpfPercent}
                             />
                         </div>
                         <div className="row">
@@ -97,7 +111,7 @@ export default class App extends Component {
                                 description="Salário Líquido"
                                 id="salarioLiquido"
                                 val={this.convertToBRL(netSalary)}
-                                percent={this.findPercent(netSalary)}
+                                percent={netPercent}
                             />
                         </div>
                         <div className="row">

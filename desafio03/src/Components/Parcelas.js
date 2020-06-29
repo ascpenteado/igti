@@ -1,18 +1,16 @@
 import React from 'react';
 import Parcela from './Parcela';
-import { Row, Col, CardDeck } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
-export default function Parcelas() {
+export default function Parcelas({ newMontante }) {
     return (
         <div>
             <h5>Parcelas:</h5>
             <hr></hr>
             <Row>
-                <Col className="d-flex justify-content-center">
-                    <CardDeck>
-                        <Parcela />
-                    </CardDeck>
-                </Col>
+                <div className="row row-cols-12 row-cols-md-12">
+                    <Parcela newMontante={newMontante} />
+                </div>
             </Row>
         </div>
     );

@@ -1,19 +1,38 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 
-export default function Parcela(props) {
+export default function Parcela({ newMontante }) {
+    console.log(newMontante);
     return (
-        <div>
-            <Card style={{ width: '12rem', marginBottom: '1rem' }}>
-                <Card.Header>Parcela 01/12</Card.Header>
-                <Card.Body>
-                    <Card.Title>R$ 1005,00</Card.Title>
-                    <Card.Text>
-                        <p>Rendimento: R$ 5,00</p>
-                        <p>Valor inicial: R$ 1000,00</p>
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-        </div>
+        <React.Fragment>
+            {newMontante.map(
+                ({ parcela, totalParcelas, capital, juros, montante }) => {
+                    return (
+                        <Card
+                            style={{ width: '12rem', margin: '1rem' }}
+                            key={parcela}
+                        >
+                            <Card.Header>
+                                Parcela {parcela}/{totalParcelas}
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Title>R$ {montante}</Card.Title>
+                                <Card.Text>
+                                    Rendimento: R${' '}
+                                    {(montante - capital).toFixed(2)}
+                                </Card.Text>
+                                <Card.Text>
+                                    Valorização:{' '}
+                                    {((montante / capital - 1) * 100).toFixed(
+                                        2
+                                    )}
+                                    %
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    );
+                }
+            )}
+        </React.Fragment>
     );
 }

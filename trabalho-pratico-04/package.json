@@ -1,7 +1,7 @@
 {
     "name": "trabalho-pratico-04",
     "version": "1.0.0",
-    "description": "",
+    "description": "Trabalho prático do curso IGTI",
     "main": "index.js",
     "scripts": {
         "start": "nodemon --experimental-modules index.js"

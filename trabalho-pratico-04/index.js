@@ -7,6 +7,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send(req.body);
+    res.send('Hello World');
 });
 
 app.listen(port, () => {

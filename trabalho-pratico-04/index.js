@@ -9,6 +9,7 @@ import { depositRouter } from './routes/deposit.js';
 import { withdrawRouter } from './routes/withdraw.js';
 import { balanceRouter } from './routes/balance.js';
 import { deleteAccountRouter } from './routes/deleteAccount.js';
+import { transferRouter } from './routes/transfer.js';
 
 const app = express();
 const port = 3000;
@@ -19,6 +20,7 @@ app.use(depositRouter);
 app.use(withdrawRouter);
 app.use(balanceRouter);
 app.use(deleteAccountRouter);
+app.use(transferRouter);
 
 mongoose
     .connect(

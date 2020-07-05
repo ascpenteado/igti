@@ -7,6 +7,8 @@ const { writeFile, readFile } = promises;
 //Import Routes
 import { depositRouter } from './routes/deposit.js';
 import { withdrawRouter } from './routes/withdraw.js';
+import { balanceRouter } from './routes/balance.js';
+import { deleteAccountRouter } from './routes/deleteAccount.js';
 
 const app = express();
 const port = 3000;
@@ -15,6 +17,8 @@ app.use(express.json());
 //Define Routes
 app.use(depositRouter);
 app.use(withdrawRouter);
+app.use(balanceRouter);
+app.use(deleteAccountRouter);
 
 mongoose
     .connect(

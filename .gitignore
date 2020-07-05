@@ -3,7 +3,6 @@ node_modules/
 /.pnp
 .pnp.js
 /trabalho-pratico-02/estados
-*.json
 
 # testing
 /coverage

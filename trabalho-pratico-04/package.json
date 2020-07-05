@@ -1,0 +1,17 @@
+{
+    "name": "trabalho-pratico-04",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon --experimental-modules index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "mongoose": "^5.9.21"
+    },
+    "type": "module"
+}

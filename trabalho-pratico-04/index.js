@@ -1,11 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { promises } from 'fs';
+import { AccountModel } from './models/AccountModel.js';
 const { writeFile, readFile } = promises;
 
 //Import Routes
 import { depositRouter } from './routes/deposit.js';
-import { AccountModel } from './models/AccountModel.js';
+import { withdrawRouter } from './routes/withdraw.js';
 
 const app = express();
 const port = 3000;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 //Define Routes
 app.use(depositRouter);
+app.use(withdrawRouter);
 
 mongoose
     .connect(

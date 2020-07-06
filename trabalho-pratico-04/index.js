@@ -11,6 +11,7 @@ import { balanceRouter } from './routes/balance.js';
 import { deleteAccountRouter } from './routes/deleteAccount.js';
 import { transferRouter } from './routes/transfer.js';
 import { averageRouter } from './routes/average.js';
+import { lowBalanceRouter } from './routes/lowbalance.js';
 
 const app = express();
 const port = 3000;
@@ -23,6 +24,7 @@ app.use(balanceRouter);
 app.use(deleteAccountRouter);
 app.use(transferRouter);
 app.use(averageRouter);
+app.use(lowBalanceRouter);
 
 mongoose
     .connect(

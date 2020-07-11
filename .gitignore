@@ -4,6 +4,9 @@ node_modules/
 .pnp.js
 /trabalho-pratico-02/estados
 
+.env
+Procfile
+
 # testing
 /coverage
 

@@ -140,7 +140,7 @@ const GradeList = () => {
                         </div>
 
                         <Link
-                            to={'/grade/' + currentGrade._id}
+                            to={'/grade/' + currentGrade.id}
                             className="badge badge-warning"
                         >
                             Edit

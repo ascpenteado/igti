@@ -2,8 +2,12 @@ import { GradeModel } from '../models/index.js';
 import { logger } from '../config/logger.js';
 
 const create = async (req, res) => {
+    const { name, subject, type, value } = req.body;
+
+    const grade = new GradeModel({ name, subject, type, value });
     try {
-        res.send();
+        await grade.save(grade);
+        res.send(grade);
         logger.info(`POST /grade - ${JSON.stringify()}`);
     } catch (error) {
         res.status(500).send({

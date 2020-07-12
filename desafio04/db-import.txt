@@ -1,1 +1,0 @@
-mongoimport --host=trabalho-pratico-04-shard-00-01.ztdnx.gcp.mongodb.net:27017 --db=desafio04 --type=csv --file=/home/arthur/Desktop/grades.csv --collection=grades --authenticationDatabase=admin --username=ascpenteado --password=trabalhoPratico04 --headerline --ssl
